@@ -1,4 +1,5 @@
 const Movie = require("./table");
+const TV = require ("./table");
 
 exports.addMovie = async (movieObj) =>{ 
     try{
@@ -33,4 +34,26 @@ exports.updateMovie = async (updateObj, filterObj) => {
     } catch (error){ 
         console.log(error);
     }
-}
+}; 
+
+exports.deleteMovie = async (filterObj) =>{ 
+    try { 
+        const response = await Movie.destroy({where: filterObj}); 
+        if(response>0){ 
+            console.log(`Successfully deleted`)
+        } else (
+            console.log ("Something went wrong")
+        )
+    } catch (error){ 
+        console.log(error)
+    }
+};
+
+exports.addTV = async (TVObj) =>{ 
+    try{
+        const newTV = await TV.create(TVObj);
+        console.log(`Successfully added ${newTV.dataValues.title} to database`);
+    } catch (error){ 
+        console.log(error)
+    }
+};
