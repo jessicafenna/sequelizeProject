@@ -11,10 +11,11 @@ exports.addTV = async (TVObj) =>{
 
 exports.listTV = async () => { 
     try { 
-        const TV = await TV.findAll();
-        for (let i = 0; i<TV.length; i++){
-            console.log(TV[i].dataValues.title)
+        const allTV = await TV.findAll();
+        for (let i = 0; i<allTV.length; i++){
+            console.log(allTV[i].dataValues.title)
         }
+        
     } catch (error){ 
         console.log(error);
     }

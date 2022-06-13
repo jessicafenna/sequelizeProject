@@ -1,5 +1,5 @@
 const Movie = require("./table");
-const TV = require ("./table");
+
 
 exports.addMovie = async (movieObj) =>{ 
     try{
@@ -14,7 +14,7 @@ exports.listMovies = async () => {
     try { 
         const movies = await Movie.findAll();
         for (let i = 0; i<movies.length; i++){
-            console.log(movies[i].dataValues.title, movies[i].dataValues.actor)
+            console.log(movies[i].dataValues.title, movies[i].dataValues.actor, movies[i].dataValues.DirectorID)
         }
     } catch (error){ 
         console.log(error);
@@ -49,11 +49,4 @@ exports.deleteMovie = async (filterObj) =>{
     }
 };
 
-exports.addTV = async (TVObj) =>{ 
-    try{
-        const newTV = await TV.create(TVObj);
-        console.log(`Successfully added ${newTV.dataValues.title} to database`);
-    } catch (error){ 
-        console.log(error)
-    }
-};
+
