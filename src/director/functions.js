@@ -1,9 +1,9 @@
 const Director = require("./table");
 
 
-exports.addDirector = async (directorObj, filterObj) =>{ 
+exports.addDirector = async (directorObj) =>{ 
     try{
-        const newDirector = await Director.create(directorObj,  {where: filterObj});
+        const newDirector = await Director.create(directorObj);
         console.log(`Successfully added ${newDirector.dataValues.fullName} to database`);
     } catch (error){ 
         console.log(error)
@@ -13,9 +13,10 @@ exports.addDirector = async (directorObj, filterObj) =>{
 exports.listDirectors = async () => { 
     try { 
         const directors = await Director.findAll();
-        for (let i = 0; i<directors.length; i++){
-            console.log(directors[i].dataValues.director)
-        }
+        console.log(directors);
+        // for (let i = 0; i<directors.length; i++){
+        //     console.log(directors[i].dataValues.director)
+        // }
     } catch (error){ 
         console.log(error);
     }

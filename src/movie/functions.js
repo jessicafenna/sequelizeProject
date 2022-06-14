@@ -1,13 +1,19 @@
 const Movie = require("./table");
+const Director = require ("../director/table");
 
 
 exports.addMovie = async (movieObj) =>{ 
-    try{
-        const newMovie = await Movie.create(movieObj);
-        console.log(`Successfully added ${newMovie.dataValues.title} to database`);
-    } catch (error){ 
-        console.log(error)
-    }
+    console.log(movieObj.director)
+    // try{
+        const director = await Director.findOne({where: {fullName: movieObj.director}});
+        console.log(director.dataValues.id);
+        const newMovie = await Movie.create({title:movieObj.title, actor: movieObj.actor, DirectorId: director.dataValues.id});
+        console.log(newMovie);
+    //     console.log(`Successfully added ${newMovie.dataValues.title} to database`);
+    // } catch (error){ 
+    //     console.log(error)
+    // }
+  
 };
 
 exports.listMovies = async () => { 

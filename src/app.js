@@ -24,12 +24,12 @@ const app = async (yargsObj) =>{
         Movie.belongsTo(Director);
         //{alter:true} - if you don't need to alter - you don't need this, otherwise app seems to start trying to alter and doesn't perform functions correctly
         await sequelize.sync();
-        if(yargsObj.movie){
-            
+        if(yargsObj.movies){
+            if (yargsObj.movie){
                 if (yargsObj.add){ 
                     // take movie k/v from yargsObj, send to add function, return movie
                     // outside the app so await it : 
-                    await addMovie({title: yargsObj.title, actor: yargsObj.actor});
+                    await addMovie(yargsObj);
                 } else if (yargsObj.list){ 
                     // list all movies from db
                     await listMovies();
@@ -39,18 +39,19 @@ const app = async (yargsObj) =>{
                 } else if (yargsObj.delete){ 
                     // take filter k/v pair from yargsObj and send to delete function, send success/failure message
                     await deleteMovie({title: yargsObj.title});
-                } else if (yargsObj.director){ 
-                    if (yargsObj.add){ 
-                        await addDirector({director:yargsObj.director}, {title: yargsObj.title})
-                    } else if (yargsObj.list){ 
-                        await listDirectors()
-                    }
-                }   else { 
+                } 
+                   else { 
                     console.log ("Incorrect command")
                 }
+            } else if (yargsObj.director) { 
+                if (yargsObj.add){ 
+                    await addDirector({fullName:yargsObj.fullName})
+                } else if (yargsObj.list){ 
+                    await listDirectors();
+                }
+            }
 
-            } 
-         else if (yargsObj.TV ){ 
+        } else if (yargsObj.TVShows ){ 
             try{ 
                 if(yargsObj.add){ 
                 await addTV({title: yargsObj.title, actor: yargsObj.actor})
@@ -66,7 +67,6 @@ const app = async (yargsObj) =>{
                 } else { 
                     console.log ("Incorrect command")
                 }
-
             } catch (error){ 
                 console.log(error)
             }
